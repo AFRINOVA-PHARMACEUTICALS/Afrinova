@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Afrinova Website</title>
+<meta name="description" content="Afrinova Pharmaceuticals Limited is building locally manufactured, quality and affordable medicines for non-communicable diseases, essential injectables and maternal health across Africa.">
+<link rel="icon" type="image/webp" href="images/header-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Figtree:wght@400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#13325A;
+  --navy-2:#2F5687;
+  --navy-3:#6F8DB5;
+  --sky:#E4EDF7;
+  --mist:#F4F8FC;
+  --green:#5E8B3A;
+  --leaf:#86B35E;
+  --green-tint:#EAF3E0;
+  --cream-green:#F6FAF1;
+  --ink:#1B3150;
+  --muted:#5A6B82;
+  --line:rgba(19,50,90,.10);
+  --glass:rgba(255,255,255,.62);
+  --glass-edge:rgba(255,255,255,.85);
+  --wa:#25D366;
+  --shadow-soft:0 30px 60px -30px rgba(19,50,90,.28);
+  --display:"Marcellus","Cinzel","Trajan Pro",Georgia,serif;
+  --italic:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --sans:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(100px + env(safe-area-inset-top,0px));background:#fff}
+body{margin:0;background:#FBFDFE;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 48px);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;color:var(--navy);margin:0;letter-spacing:.005em;line-height:1.12}
+h2{font-size:clamp(34px,4.4vw,54px)}
+h3{font-size:22px}
+p{margin:0}
+.lede{font-size:clamp(17px,1.5vw,19px);color:var(--muted);max-width:60ch}
+.kicker{font-family:var(--italic);font-style:italic;font-size:22px;color:var(--green);margin-bottom:10px;display:block}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15.5px;text-decoration:none;border:0;cursor:pointer;font-family:var(--sans);transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-primary{background:linear-gradient(135deg,var(--navy-2),var(--navy));color:#fff;box-shadow:0 14px 30px -14px rgba(19,50,90,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px rgba(19,50,90,.7)}
+.btn-ghost{background:rgba(255,255,255,.7);color:var(--navy);border:1px solid rgba(19,50,90,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:#fff;transform:translateY(-2px)}
+.btn-wa{background:var(--wa);color:#073b1d}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(37,211,102,.8)}
+
+/* ---------- header ---------- */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;transition:background .3s ease,box-shadow .3s ease}
+.site-header.scrolled{background:rgba(255,255,255,.82);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 1px 0 var(--line),0 10px 30px -20px rgba(19,50,90,.3)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:96px;gap:20px}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand img{height:80px;width:auto}
+.nav-links{display:flex;gap:2px;margin-left:auto;align-items:center;list-style:none;margin:0;padding:0}
+.nav-links a{text-decoration:none;font-weight:500;font-size:15px;color:var(--ink);padding:9px 12px;white-space:nowrap;border-radius:999px;transition:background .2s}
+.nav-links a:hover{background:var(--sky)}
+.nav-links a.btn{padding:12px 22px;color:#fff;font-weight:600}
+.nav-links a.btn:hover{background:linear-gradient(135deg,var(--navy-2),var(--navy))}
+.nav-cta{margin-left:10px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang{position:relative}
+.lang-btn{display:inline-flex;align-items:center;gap:7px;height:46px;padding:0 14px 0 12px;border-radius:999px;border:1px solid rgba(19,50,90,.14);background:rgba(255,255,255,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--navy);font:600 14.5px var(--sans);cursor:pointer;transition:background .2s,box-shadow .2s}
+.lang-btn:hover,.lang.open .lang-btn{background:#fff;box-shadow:0 10px 24px -16px rgba(19,50,90,.55)}
+.lang-btn .globe{width:19px;height:19px;color:var(--green)}
+.lang-btn .chev{width:15px;height:15px;transition:transform .25s}
+.lang.open .lang-btn .chev{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:200px;list-style:none;margin:0;padding:8px;border-radius:20px;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(19,50,90,.5);opacity:0;transform:translateY(-6px) scale(.98);transform-origin:top right;pointer-events:none;transition:all .25s cubic-bezier(.2,.8,.2,1);z-index:70}
+.lang.open .lang-menu{opacity:1;transform:none;pointer-events:auto}
+.lang-menu button{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border:0;border-radius:13px;background:none;font:500 15px var(--sans);color:var(--ink);cursor:pointer;text-align:left}
+.lang-menu button:hover{background:var(--mist)}
+.lang-menu b{display:grid;place-items:center;width:34px;height:26px;border-radius:8px;background:var(--sky);color:var(--navy-2);font-size:12px;font-weight:700}
+.lang-menu .tick{width:18px;height:18px;margin-left:auto;color:var(--green);opacity:0}
+.lang-menu button[aria-checked="true"]{background:var(--green-tint)}
+.lang-menu button[aria-checked="true"] b{background:var(--green);color:#fff}
+.lang-menu button[aria-checked="true"] .tick{opacity:1}
+.menu-btn{display:none;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.8);cursor:pointer;align-items:center;justify-content:center}
+.menu-btn span,.menu-btn span::before,.menu-btn span::after{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px;position:relative;transition:transform .3s}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0}
+.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+.menu-open .menu-btn span{background:transparent}
+.menu-open .menu-btn span::before{transform:translateY(6px) rotate(45deg)}
+.menu-open .menu-btn span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;margin-top:-96px;padding:140px 0 90px;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:
+   radial-gradient(60% 70% at 88% 18%,rgba(134,179,94,.30),transparent 60%),
+   radial-gradient(55% 65% at 70% 90%,rgba(111,141,181,.30),transparent 65%),
+   radial-gradient(50% 60% at 5% 10%,rgba(228,237,247,1),transparent 70%),
+   linear-gradient(180deg,#F7FBFF 0%,#FBFDF8 100%)}
+.hex-bg{position:absolute;right:-60px;top:40px;width:720px;opacity:.55;z-index:-1;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.02fr 1fr;gap:40px;align-items:center}
+.status-pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 8px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-edge);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:14px;font-weight:500;color:var(--navy);box-shadow:0 8px 24px -16px rgba(19,50,90,.4)}
+.status-pill b{background:var(--green-tint);color:var(--green);padding:3px 10px;border-radius:999px;font-weight:600;font-size:13px}
+.motto{font-family:var(--display);font-size:clamp(46px,6.6vw,88px);line-height:1.02;color:var(--navy);margin:26px 0 22px;letter-spacing:-.005em}
+.motto .line{display:block;overflow:hidden;padding-bottom:.06em}
+html:lang(fr) .motto,html:lang(es) .motto{font-size:clamp(40px,5.6vw,76px)}
+.motto .line span{display:inline-block;transform:translateY(105%);animation:rise 1s cubic-bezier(.2,.7,.1,1) forwards}
+.motto .line:nth-child(2) span{animation-delay:.12s}
+.motto .line:nth-child(3) span{animation-delay:.24s}
+.motto .leafmark{background:linear-gradient(100deg,var(--navy) 0%,var(--navy-2) 40%,var(--green) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes rise{to{transform:none}}
+.hero-sub{font-size:clamp(17px,1.5vw,20px);color:var(--muted);max-width:50ch;opacity:0;animation:fade .9s .5s ease forwards}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;opacity:0;animation:fade .9s .65s ease forwards}
+.hero-meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:44px;opacity:0;animation:fade .9s .8s ease forwards}
+.hero-meta div{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--muted)}
+.hero-meta svg{width:22px;height:22px;color:var(--green);flex:none}
+@keyframes fade{to{opacity:1}}
+
+/* card stage */
+.stage{position:relative;height:590px;perspective:1600px}
+.arc{position:absolute;inset:-10px -20px 0 -20px;width:calc(100% + 40px);height:100%;z-index:0;overflow:visible}
+.arc path{fill:none;stroke-width:5;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.2s .3s cubic-bezier(.6,.1,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.cards{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .5s ease-out}
+.card{position:absolute;top:50%;left:50%;width:250px;height:360px;border-radius:30px;overflow:hidden;background:#fff;border:1px solid rgba(255,255,255,.9);box-shadow:0 40px 80px -30px rgba(19,50,90,.45);transform:translate(-50%,-50%) scale(.9);opacity:0}
+.card img{width:100%;height:100%;object-fit:cover}
+.card.side-l{animation:fanL 1.2s .45s cubic-bezier(.2,.8,.2,1) forwards}
+.card.side-r{animation:fanR 1.2s .45s cubic-bezier(.2,.8,.2,1) forwards}
+.card.center{width:300px;height:430px;z-index:3;animation:fanC 1.1s .3s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes fanL{to{opacity:1;transform:translate(var(--lx,-128%),-44%) rotateY(26deg) rotateZ(-4deg)}}
+@keyframes fanR{to{opacity:1;transform:translate(var(--rx,28%),-56%) rotateY(-26deg) rotateZ(4deg)}}
+@keyframes fanC{to{opacity:1;transform:translate(-50%,-50%) translateZ(60px)}}
+.card .cap{position:absolute;left:12px;right:12px;bottom:12px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.72);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.9)}
+.card .cap strong{display:block;font-family:var(--display);font-weight:400;font-size:19px;color:var(--navy);line-height:1.2}
+.card .cap small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.card.side-l .cap strong,.card.side-r .cap strong{font-size:16px}
+.float-badge{position:absolute;z-index:5;display:flex;align-items:center;gap:12px;padding:12px 18px 12px 12px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-edge);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 40px -24px rgba(19,50,90,.45);font-size:14px;color:var(--ink);opacity:0;animation:fade .8s 1.3s ease forwards,bob 6s 2s ease-in-out infinite}
+.float-badge .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--green-tint);color:var(--green)}
+.float-badge .ic svg{width:22px;height:22px}
+.float-badge b{display:block;font-weight:600;color:var(--navy);font-size:15px;line-height:1.2}
+.fb-1{left:-10px;bottom:0}
+.fb-2{right:-10px;top:6px;animation-delay:1.5s,2.6s}
+.fb-2 .ic{background:var(--sky);color:var(--navy-2)}
+@keyframes bob{50%{transform:translateY(-8px)}}
+
+/* ---------- ribbon ---------- */
+.ribbon{position:relative;padding:22px 0;background:linear-gradient(90deg,var(--green-tint),var(--sky));overflow:hidden;border-block:1px solid rgba(255,255,255,.9)}
+.ribbon-track{display:flex;gap:48px;width:max-content;animation:marquee 38s linear infinite}
+.ribbon-track span{display:flex;align-items:center;gap:48px;font-family:var(--italic);font-style:italic;font-size:clamp(22px,2.4vw,30px);color:var(--navy);white-space:nowrap}
+.ribbon-track i{width:30px;height:30px;flex:none;display:inline-block}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{position:relative}
+.sec{padding:clamp(80px,10vw,130px) 0}
+.sec-head{max-width:720px;margin-bottom:56px}
+.sec-head h2{margin-bottom:18px}
+.center-head{margin-inline:auto;text-align:center}
+.center-head .lede{margin-inline:auto}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.about-copy p+p{margin-top:18px}
+.about-copy p{font-size:18px;color:#3A4D66;max-width:58ch}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.fact{padding:20px 18px;border-radius:22px;background:linear-gradient(160deg,#fff,var(--mist));border:1px solid var(--line)}
+.fact strong{display:block;font-family:var(--display);font-weight:400;font-size:30px;color:var(--navy);line-height:1.1}
+.fact span{display:block;font-size:14px;color:var(--muted);margin-top:6px;line-height:1.45}
+.about-visual{position:relative;height:560px}
+.arch{position:absolute;overflow:hidden;box-shadow:var(--shadow-soft);border:6px solid #fff}
+.arch img{width:100%;height:100%;object-fit:cover}
+.arch-a{right:0;top:0;width:66%;height:84%;border-radius:220px 220px 34px 34px}
+.arch-b{left:0;bottom:0;width:52%;height:46%;border-radius:34px;background:#f4f7fa}
+.about-seal{position:absolute;left:8%;top:10%;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid #fff;display:grid;place-items:center;box-shadow:var(--shadow-soft)}
+.about-seal svg{width:140px;height:140px;animation:spin 30s linear infinite}
+.about-seal .emb{position:absolute;width:62px;height:62px;border-radius:50%;background:var(--green-tint);display:grid;place-items:center;color:var(--green)}
+.about-seal .emb svg{width:32px;height:32px;animation:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* focus */
+.focus{background:linear-gradient(180deg,#FBFDFE 0%,var(--mist) 100%)}
+.focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tile{position:relative;border-radius:30px;overflow:hidden;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .35s ease,box-shadow .35s ease}
+.tile:hover{transform:translateY(-6px);box-shadow:var(--shadow-soft)}
+.tile-img{height:230px;overflow:hidden;position:relative}
+.tile-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.tile:hover .tile-img img{transform:scale(1.06)}
+.tile-img::after{content:"";position:absolute;inset:auto 0 0 0;height:60%;background:linear-gradient(transparent,rgba(255,255,255,.95))}
+.tile-body{padding:0 28px 30px;margin-top:-34px;position:relative;z-index:1}
+.tile-ic{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:#fff;color:var(--green);box-shadow:0 14px 30px -18px rgba(19,50,90,.5);margin-bottom:18px}
+.tile-ic svg{width:28px;height:28px}
+.tile h3{margin-bottom:10px}
+.tile p{color:var(--muted);font-size:16px}
+
+/* vision / mission */
+.vm{padding:clamp(80px,10vw,130px) 0;overflow:hidden}
+.vm-panel{position:relative;border-radius:44px;padding:clamp(34px,5vw,70px);background:linear-gradient(135deg,#F1F7EA 0%,#EAF1F9 55%,#F4F8FC 100%);border:1px solid #fff;box-shadow:0 50px 100px -60px rgba(19,50,90,.45);overflow:hidden;isolation:isolate}
+.vm-panel::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;border:2px solid rgba(94,139,58,.28);right:-180px;top:-220px;z-index:-1}
+.vm-panel::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:2px solid rgba(47,86,135,.18);left:-160px;bottom:-240px;z-index:-1}
+.vm-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+.vm-photo{margin:0 10px -120px 0;width:170px;height:250px;border-radius:26px;overflow:hidden;border:6px solid #fff;box-shadow:var(--shadow-soft);transform:rotate(4deg);flex:none;position:relative;z-index:2}
+.vm-photo img{width:100%;height:100%;object-fit:cover}
+.vm-grid{display:grid;position:relative;z-index:1;grid-template-columns:1fr 1fr;gap:26px}
+.vm-card{padding:36px 36px 40px;border-radius:30px;background:rgba(255,255,255,.7);border:1px solid #fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.vm-card .head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.vm-card .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff}
+.vm-card .ic svg{width:26px;height:26px}
+.vm-card.vision .ic{background:linear-gradient(135deg,var(--navy-3),var(--navy-2))}
+.vm-card.mission .ic{background:linear-gradient(135deg,var(--leaf),var(--green))}
+.vm-card h3{font-size:28px}
+.vm-card p{font-family:var(--italic);font-style:italic;font-weight:500;font-size:clamp(22px,2vw,26px);line-height:1.45;color:var(--ink)}
+
+/* values honeycomb */
+.values{background:radial-gradient(55% 45% at 50% 42%,rgba(234,243,224,.85),transparent 70%),#FBFDFE}
+.honey{display:grid;grid-template-columns:repeat(7,1fr);max-width:1060px;margin-inline:auto}
+.hex{grid-column:span 2;aspect-ratio:1/1.1547;position:relative;filter:drop-shadow(0 22px 26px rgba(19,50,90,.14));transition:transform .35s ease}
+.hex:hover{transform:translateY(-6px)}
+.hex:nth-child(1){grid-column:1/3}.hex:nth-child(2){grid-column:3/5}.hex:nth-child(3){grid-column:5/7}
+.hex:nth-child(4){grid-column:2/4;margin-top:-26%}.hex:nth-child(5){grid-column:4/6;margin-top:-26%}.hex:nth-child(6){grid-column:6/8;margin-top:-26%}
+.hex-in{position:absolute;inset:6px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(165deg,#fff 0%,#F3F8FC 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14% 16%}
+.hex:nth-child(even) .hex-in{background:linear-gradient(165deg,#fff 0%,#F2F8EB 100%)}
+.hex-ic{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--sky);color:var(--navy-2);margin-bottom:12px}
+.hex:nth-child(even) .hex-ic{background:var(--green-tint);color:var(--green)}
+.hex-ic svg{width:25px;height:25px}
+.hex h3{font-size:19px;margin-bottom:8px}
+.hex p{font-size:14.5px;color:var(--muted);line-height:1.5}
+
+/* objectives */
+.obj{background:linear-gradient(180deg,var(--mist),#EEF4FA)}
+.obj-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+.obj-aside{position:sticky;top:120px}
+.obj-aside .lede{margin-top:18px}
+.orbit{margin-top:40px;position:relative;width:100%;max-width:360px;aspect-ratio:1}
+.orbit img{position:absolute;inset:18%;width:64%;height:64%;object-fit:contain}
+.orbit svg.ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 60s linear infinite}
+.obj-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.obj-item{display:flex;gap:20px;align-items:flex-start;padding:22px 26px;border-radius:24px;background:rgba(255,255,255,.78);border:1px solid #fff;box-shadow:0 18px 40px -34px rgba(19,50,90,.6);transition:transform .3s ease,background .3s ease}
+.obj-item:hover{transform:translateX(6px);background:#fff}
+.obj-ic{width:50px;height:50px;border-radius:15px;flex:none;display:grid;place-items:center;background:linear-gradient(135deg,var(--green-tint),#DCEBCB);color:var(--green)}
+.obj-item:nth-child(even) .obj-ic{background:linear-gradient(135deg,var(--sky),#D3E1F1);color:var(--navy-2)}
+.obj-ic svg{width:25px;height:25px}
+.obj-item h3{font-family:var(--sans);font-weight:600;font-size:17.5px;color:var(--navy);margin-bottom:4px;letter-spacing:0}
+.obj-item p{font-size:15.5px;color:var(--muted)}
+
+/* partner */
+.partner{padding:clamp(80px,10vw,130px) 0}
+.partner-card{position:relative;border-radius:44px;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;background:linear-gradient(120deg,#F3F9EC,#EAF2FB);border:1px solid #fff;box-shadow:0 50px 100px -60px rgba(19,50,90,.45)}
+.partner-copy{padding:clamp(34px,5vw,70px)}
+.partner-copy .script{font-family:var(--italic);font-style:italic;font-weight:600;font-size:clamp(40px,5vw,66px);line-height:1.02;color:var(--navy);margin-bottom:22px}
+.partner-copy .script .u{display:inline-block;position:relative}
+.partner-copy .script .u::after{content:"";position:absolute;left:0;right:-6px;bottom:-4px;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--leaf),transparent);transform:rotate(-1.2deg)}
+.reasons{list-style:none;padding:0;margin:26px 0 34px;display:grid;gap:12px}
+.reasons li{display:flex;gap:12px;align-items:flex-start;font-size:16.5px;color:#3A4D66}
+.reasons svg{width:22px;height:22px;flex:none;color:var(--green);margin-top:3px}
+.partner-img{position:relative;min-height:420px}
+.partner-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.partner-img::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#EFF5F1 0%,rgba(239,245,241,0) 35%)}
+
+/* contact */
+.contact{background:linear-gradient(180deg,#FBFDFE,var(--cream-green))}
+.contact-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:stretch}
+.contact-grid .branches{height:100%}
+.contact-grid .branch{justify-content:center}
+.contact-side{display:flex;flex-direction:column;gap:14px}
+.contact-side .leader{margin-top:0;flex:1}
+.c-cards{display:grid;gap:14px}
+.c-card{display:flex;gap:18px;align-items:center;padding:20px 22px;border-radius:24px;background:#fff;border:1px solid var(--line);text-decoration:none;transition:transform .3s ease,box-shadow .3s ease}
+a.c-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-soft)}
+.c-ic{width:52px;height:52px;border-radius:16px;flex:none;display:grid;place-items:center;background:var(--sky);color:var(--navy-2)}
+.c-ic svg{width:25px;height:25px}
+.c-card.wa .c-ic{background:#DDF7E6;color:#128C4A}
+.c-card.mail .c-ic{background:var(--green-tint);color:var(--green)}
+.c-card small{display:block;font-size:13.5px;color:var(--muted)}
+.c-card strong{display:block;font-weight:600;color:var(--navy);font-size:17px;overflow-wrap:anywhere}
+.leader{margin-top:26px;padding:26px;border-radius:28px;background:linear-gradient(120deg,var(--sky),var(--green-tint));color:var(--navy);border:1px solid #fff;display:flex;gap:18px;align-items:center;position:relative;overflow:hidden}
+.leader::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;border:2px solid rgba(134,179,94,.45);right:-90px;top:-110px}
+.leader .ini{width:62px;height:62px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-family:var(--display);font-size:24px;flex:none;border:1px solid rgba(19,50,90,.12);box-shadow:0 10px 24px -16px rgba(19,50,90,.5)}
+.leader strong{font-family:var(--display);font-weight:400;font-size:22px;display:block}
+.leader span{color:var(--muted);font-size:15px}
+.form{padding:clamp(26px,3.5vw,42px);border-radius:32px;background:rgba(255,255,255,.85);border:1px solid #fff;box-shadow:0 40px 80px -50px rgba(19,50,90,.5)}
+.form h3{font-size:28px;margin-bottom:6px}
+.form>p{color:var(--muted);margin-bottom:24px;font-size:15.5px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:14px;font-weight:600;color:var(--navy)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;padding:13px 16px;border-radius:14px;border:1px solid rgba(19,50,90,.16);background:#FAFCFE;color:var(--ink);transition:border .2s,box-shadow .2s;width:100%}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--leaf);box-shadow:0 0 0 4px rgba(134,179,94,.2);background:#fff}
+.form-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.form-note{font-size:14px;margin-top:12px;color:var(--muted);min-height:1.4em}
+.form-note.err{color:#B3261E}
+
+.branches{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.branch{padding:22px;border-radius:26px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.branch::after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-60px;top:-60px;background:var(--green-tint);z-index:0}
+.branch.tz::after{background:var(--sky)}
+.branch>*{position:relative;z-index:1}
+.branch-head{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.branch-head small{display:block;font-size:13.5px;color:var(--muted)}
+.branch-head strong{display:block;font-family:var(--display);font-weight:400;font-size:21px;color:var(--navy);line-height:1.2}
+.flag{width:36px;height:36px;border-radius:50%;overflow:hidden;display:flex;flex-direction:column;flex:none;border:2px solid #fff;box-shadow:0 6px 14px -8px rgba(19,50,90,.6)}
+.flag-ke{background:linear-gradient(180deg,#000 0 30%,#fff 30% 35%,#BB0000 35% 65%,#fff 65% 70%,#006600 70%)}
+.flag-tz{background:linear-gradient(135deg,#1EB53A 0 38%,#FCD116 38% 43%,#111 43% 57%,#FCD116 57% 62%,#00A3DD 62%)}
+.b-line{display:flex;align-items:center;gap:10px;padding:9px 10px;margin:0 -10px;border-radius:12px;text-decoration:none;font-weight:600;color:var(--navy);font-size:15.5px;transition:background .2s}
+a.b-line:hover{background:var(--mist)}
+.b-line.static{font-weight:500;color:var(--muted)}
+.b-ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--mist);color:var(--navy-2);flex:none}
+.b-ic svg{width:18px;height:18px}
+.b-line.wa .b-ic{background:#DDF7E6;color:#128C4A}
+.wa-choices{display:grid;gap:8px}
+.wa-choice{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;text-decoration:none;border:1px solid var(--line);background:var(--mist);color:var(--navy);font-weight:600;font-size:14.5px;transition:background .2s,border-color .2s}
+.wa-choice:hover{background:#DDF7E6;border-color:#bfe9cf}
+.wa-choice .flag{width:26px;height:26px;border-width:1.5px}
+.wa-choice small{display:block;font-weight:500;color:var(--muted);font-size:12.5px}
+.wa-choice svg{width:18px;height:18px;margin-left:auto;color:#128C4A}
+button.wa-btn{border:0;cursor:pointer}
+.mosaic{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:260px 260px;gap:18px}
+.m-tile{position:relative;border-radius:30px;overflow:hidden;border:5px solid #fff;box-shadow:var(--shadow-soft);margin:0}
+.m-tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.m-tile:hover img{transform:scale(1.05)}
+.m-tile.tall{grid-row:span 2}
+.m-tile.wide{grid-column:span 2}
+.m-tile figcaption{position:absolute;left:14px;bottom:14px;right:14px;max-width:320px;padding:14px 18px;border-radius:20px;background:rgba(255,255,255,.76);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.9)}
+.m-tile figcaption strong{display:block;font-family:var(--display);font-weight:400;font-size:20px;color:var(--navy);line-height:1.2}
+.m-tile figcaption span{display:block;font-size:14px;color:var(--muted);margin-top:3px;line-height:1.45}
+/* footer */
+.footer{background:#fff;border-top:1px solid var(--line);padding:70px 0 40px}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;align-items:start}
+.foot-brand img{width:190px;height:auto}
+.foot-motto{font-family:var(--italic);font-style:italic;font-size:26px;color:var(--green);margin-top:14px;line-height:1.2}
+.footer h4{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--navy);margin:0 0 14px}
+.footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.footer ul a{text-decoration:none;color:var(--muted);font-size:15.5px}
+.footer ul a:hover{color:var(--navy)}
+.footer li{color:var(--muted);font-size:15.5px}
+.foot-bottom{margin-top:50px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.foot-wave{display:block;width:100%;height:10px;background:linear-gradient(90deg,var(--navy-3) 0 72%,#fff 72% 73%,var(--leaf) 73% 100%)}
+
+/* whatsapp */
+.wa-float{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:flex-end;gap:12px;flex-direction:column}
+.wa-btn{width:64px;height:64px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 16px 34px -10px rgba(37,211,102,.7);position:relative;text-decoration:none;transition:transform .25s ease}
+.wa-btn:hover{transform:scale(1.07)}
+.wa-btn svg{width:34px;height:34px;color:#fff}
+.wa-btn::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);z-index:-1;animation:ping 2.4s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.55}80%,100%{transform:scale(1.7);opacity:0}}
+.wa-pop{width:290px;padding:18px 18px 16px;border-radius:22px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(19,50,90,.5);transform:translateY(12px) scale(.96);opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.2,.8,.2,1);position:relative}
+.wa-pop.show{opacity:1;transform:none;pointer-events:auto}
+.wa-pop .who{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.wa-pop .who .dot{width:38px;height:38px;border-radius:50%;background:#DDF7E6;display:grid;place-items:center;color:#128C4A}
+.wa-pop .who .dot svg{width:20px;height:20px}
+.wa-pop strong{display:block;color:var(--navy);font-size:15px;line-height:1.2}
+.wa-pop small{color:#128C4A;font-size:12.5px;font-weight:600}
+.wa-pop p{font-size:14.5px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.wa-pop .btn{width:100%;justify-content:center;padding:11px 16px;font-size:14.5px}
+.wa-close{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;border:0;background:var(--mist);color:var(--muted);cursor:pointer;font-size:18px;line-height:1}
+
+/* reveal (used sparingly) */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1060px){
+  .hero-grid{grid-template-columns:1fr}
+  .stage{height:520px;max-width:620px;margin-inline:auto;width:100%}
+  .about-grid,.obj-grid{grid-template-columns:1fr;gap:50px}
+  .contact-grid{grid-template-columns:1fr}
+  .obj-aside{position:static}
+  .orbit{display:none}
+  .partner-card{grid-template-columns:1fr}
+  .partner-img{min-height:300px;order:-1}
+  .partner-img::before{background:linear-gradient(0deg,#EFF5F1 0%,rgba(239,245,241,0) 40%)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:240px 240px 240px}
+  .m-tile.tall{grid-row:span 2}
+  .m-tile.wide{grid-column:span 2}
+  .foot-brand{grid-column:1/-1}
+}
+@media (max-width:1180px){
+  .hero-grid{grid-template-columns:1fr}
+  .stage{height:540px;max-width:640px;margin-inline:auto;width:100%}
+  .nav-links{position:fixed;inset:calc(96px + env(safe-area-inset-top,0px)) 16px auto 16px;flex-direction:column;align-items:stretch;gap:4px;padding:14px;border-radius:24px;background:rgba(255,255,255,.96);box-shadow:0 30px 60px -30px rgba(19,50,90,.5);border:1px solid var(--line);transform:translateY(-10px);opacity:0;pointer-events:none;transition:all .3s ease}
+  .menu-open .nav-links{transform:none;opacity:1;pointer-events:auto}
+  .nav-links a{padding:13px 16px;font-size:16px}
+  .nav-cta{margin:6px 0 0}
+  .nav-cta .btn{width:100%;justify-content:center}
+  .menu-btn{display:inline-flex}
+}
+@media (max-width:900px){
+  .focus-grid{grid-template-columns:1fr;max-width:560px;margin-inline:auto}
+  .vm-grid{grid-template-columns:1fr}
+  .vm-photo{margin:0 0 -40px auto;width:130px;height:190px}
+  .vm-top{flex-wrap:nowrap;align-items:flex-start}
+  .honey{grid-template-columns:1fr 1fr;gap:16px}
+  .hex,.hex:nth-child(n){grid-column:auto;margin-top:0;aspect-ratio:auto;filter:none}
+  .hex-in{position:static;clip-path:none;border-radius:26px;padding:26px 20px;border:1px solid var(--line);box-shadow:0 18px 40px -34px rgba(19,50,90,.6)}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{width:min(1180px,100% - 32px)}
+  .nav{height:84px}
+  .brand img{height:68px}
+  .hero{margin-top:-84px}
+  .nav-links{inset:calc(84px + env(safe-area-inset-top,0px)) 16px auto 16px}
+  .hero{padding-top:120px}
+  .stage{height:430px}
+  .stage{--lx:-104%;--rx:4%}
+  .card{width:170px;height:250px;border-radius:24px}
+  .card.center{width:220px;height:320px}
+  .card .cap{padding:10px 12px;border-radius:16px}
+  .card .cap strong{font-size:16px}
+  .card.side-l .cap,.card.side-r .cap{display:none}
+  .fb-1{left:0;bottom:6px}
+  .fb-2{right:0;top:0}
+  .float-badge{padding:9px 14px 9px 9px;font-size:13px}
+  .float-badge .ic{width:34px;height:34px}
+  .facts{grid-template-columns:1fr}
+  .about-visual{height:430px}
+  .about-seal{width:116px;height:116px;left:2%}
+  .about-seal svg{width:108px;height:108px}
+  .about-seal .emb{width:50px;height:50px}
+  .honey{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .branches{grid-template-columns:1fr}
+  .c-card strong{font-size:15px}
+  .c-card{padding:18px}
+  .mosaic{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:260px}
+  .m-tile.tall,.m-tile.wide{grid-row:auto;grid-column:auto}
+  .m-tile.tall{grid-row:span 1}
+  .foot-grid{grid-template-columns:1fr}
+  .wa-float{right:16px}
+  .lang-btn{height:44px;padding:0 10px}
+  .lang-btn .chev{display:none}
+  .wa-pop{width:min(290px,calc(100vw - 32px))}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .ribbon-track{animation:none}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Afrinova Pharmaceuticals home">
+      <img src="images/header-logo.webp" alt="Afrinova Pharmaceuticals logo" width="301" height="294">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About us</a></li>
+      <li><a href="#focus">Our focus</a></li>
+      <li><a href="#vision">Vision &amp; mission</a></li>
+      <li><a href="#values">Values</a></li>
+      <li><a href="#objectives">Objectives</a></li>
+      <li class="nav-cta"><a class="btn btn-primary" href="#contact">Partner with us</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" id="lang" data-no-i18n>
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Choose language"><svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span id="langCode">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <ul class="lang-menu" id="langMenu" role="menu">
+          <li><button type="button" role="menuitemradio" data-lang="en"><b>EN</b>English<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></button></li>
+          <li><button type="button" role="menuitemradio" data-lang="fr"><b>FR</b>Français<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></button></li>
+          <li><button type="button" role="menuitemradio" data-lang="es"><b>ES</b>Español<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></button></li>
+        </ul>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <svg class="hex-bg" viewBox="0 0 700 600" aria-hidden="true">
+    <g fill="none" stroke="#6F8DB5" stroke-opacity=".35" stroke-width="1.4">
+      <path d="M420 60l52 30v60l-52 30-52-30V90z"/><path d="M524 120l52 30v60l-52 30-52-30v-60z"/><path d="M420 180l52 30v60l-52 30-52-30v-60z"/><path d="M316 240l52 30v60l-52 30-52-30v-60z"/><path d="M524 240l52 30v60l-52 30-52-30v-60z"/><path d="M628 180l52 30v60l-52 30-52-30v-60z"/><path d="M420 300l52 30v60l-52 30-52-30v-60z"/><path d="M628 300l52 30v60l-52 30-52-30v-60z"/><path d="M524 360l52 30v60l-52 30-52-30v-60z"/>
+    </g>
+    <g fill="#86B35E" fill-opacity=".55"><circle cx="472" cy="90" r="5"/><circle cx="576" cy="210" r="5"/><circle cx="368" cy="270" r="5"/><circle cx="680" cy="330" r="5"/><circle cx="472" cy="390" r="5"/></g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="status-pill"><b>Coming soon</b> Building Africa's next pharmaceutical manufacturer</span>
+      <h1 class="motto" aria-label="Innovating for a healthier Africa.">
+        <span class="line"><span>Innovating</span></span>
+        <span class="line"><span>for a healthier</span></span>
+        <span class="line"><span class="leafmark">Africa.</span></span>
+      </h1>
+      <p class="hero-sub">Afrinova Pharmaceuticals is bringing quality, affordable, locally manufactured medicines closer to the people who need them, starting in Eastern and Southern Africa.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Partner with us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <a class="btn btn-ghost" href="#about">Learn about Afrinova</a>
+      </div>
+      <div class="hero-meta">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Kenya and Tanzania</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Quality and patient safety first</div>
+      </div>
+    </div>
+
+    <div class="stage" id="stage" aria-hidden="true">
+      <svg class="arc" viewBox="0 0 600 590" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="gArc" x1="0" x2="1"><stop offset="0" stop-color="#86B35E"/><stop offset="1" stop-color="#5E8B3A"/></linearGradient>
+          <linearGradient id="nArc" x1="0" x2="1"><stop offset="0" stop-color="#2F5687"/><stop offset="1" stop-color="#6F8DB5"/></linearGradient>
+        </defs>
+        <path d="M112 470 A 250 250 0 0 1 330 48" stroke="url(#gArc)"/>
+        <path d="M372 52 A 250 250 0 0 1 512 440" stroke="url(#nArc)" style="animation-delay:.7s"/>
+      </svg>
+      <div class="cards" id="cards">
+        <figure class="card side-l" style="margin:0"><img src="images/hero-card-left.webp" alt="" style="object-position:50% 40%"><div class="cap"><strong>Maternal health</strong><small>Safer childbirth</small></div></figure>
+        <figure class="card side-r" style="margin:0"><img src="images/hero-card-center.webp" alt="" style="object-position:35% 50%"><div class="cap"><strong>NCD care</strong><small>Chronic treatments</small></div></figure>
+        <figure class="card center" style="margin:0"><img src="images/hero-card-right.webp" alt=""><div class="cap"><strong>Quality, affordable medicines</strong><small>Accessible to all</small></div></figure>
+      </div>
+      <div class="float-badge fb-1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l5 3V10l5 3V7l4 2v12"/></svg></span><span><b>Made in Africa</b>Local manufacturing</span></div>
+      <div class="float-badge fb-2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5M15 14.6c2.6-.3 4.8 1 5.6 3.6"/></svg></span><span><b>50 to 500 jobs</b>Over ten years</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RIBBON -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    <span>Innovating for a healthier Africa<i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#5E8B3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="#EAF3E0"/><path d="M5 19 13 11"/></svg></i>Quality, affordable medications, accessible to all<i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#5E8B3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="#EAF3E0"/><path d="M5 19 13 11"/></svg></i>Together for better health<i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#5E8B3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="#EAF3E0"/><path d="M5 19 13 11"/></svg></i></span>
+    <span>Innovating for a healthier Africa<i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#5E8B3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="#EAF3E0"/><path d="M5 19 13 11"/></svg></i>Quality, affordable medications, accessible to all<i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#5E8B3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="#EAF3E0"/><path d="M5 19 13 11"/></svg></i>Together for better health<i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#5E8B3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="#EAF3E0"/><path d="M5 19 13 11"/></svg></i></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <span class="kicker">Who we are</span>
+      <h2>Medicines made closer to the people who need them</h2>
+      <div style="height:26px"></div>
+      <p>Afrinova Pharmaceuticals Limited is dedicated to bringing high-quality, affordable medicines closer to the people who need them. We focus on treatments for non-communicable diseases and essential injectable medicines, including products that prevent and manage postpartum hemorrhage during childbirth.</p>
+      <p>Starting in Eastern and Southern Africa, Afrinova aims to expand across the continent, reducing Africa's reliance on imported pharmaceuticals while strengthening access to essential healthcare.</p>
+      <div class="facts">
+        <div class="fact"><strong>50 to 500</strong><span>Direct jobs expected over the next ten years</span></div>
+        <div class="fact"><strong>2 nations</strong><span>Manufacturing planned in Kenya and Tanzania</span></div>
+        <div class="fact"><strong>1 continent</strong><span>East and Southern Africa first, then beyond</span></div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <div class="arch arch-a"><img src="images/about-photo.webp" alt="A healthcare professional holding a stethoscope" loading="lazy"></div>
+      <div class="arch arch-b"><img src="images/mission-photo.webp" alt="Glass vials and ampoules for injectable medicines" loading="lazy"></div>
+      <div class="about-seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text font-family="Marcellus, Georgia, serif" font-size="15.5" letter-spacing="3.2" fill="#2F5687"><textPath href="#circ">innovating for a healthier Africa &#8226; innovating for a healthier Africa &#8226; </textPath></text></svg>
+        <span class="emb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"/><path d="M5 19 13 11"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS -->
+<section class="sec focus" id="focus">
+  <div class="wrap">
+    <div class="sec-head center-head">
+      <span class="kicker">What we will make</span>
+      <h2>Three areas where access saves lives</h2>
+      <p class="lede" style="margin-top:16px">Our product portfolio is built around the treatments that African patients and health systems need most.</p>
+    </div>
+    <div class="focus-grid">
+      <article class="tile">
+        <div class="tile-img"><img src="images/focus-photo-1.webp" alt="Green capsules spilling from a medicine bottle" loading="lazy"></div>
+        <div class="tile-body">
+          <div class="tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="m9.2 8.1 5.6 7.8"/></svg></div>
+          <h3>Non-communicable diseases</h3>
+          <p>Affordable, quality treatments for chronic conditions that affect millions of families across the continent.</p>
+        </div>
+      </article>
+      <article class="tile">
+        <div class="tile-img"><img src="images/focus-tile-1.webp" alt="Vials and ampoules" loading="lazy"></div>
+        <div class="tile-body">
+          <div class="tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4M17 7l3-3M19 9 8.7 19.3a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"/></svg></div>
+          <h3>Essential injectables</h3>
+          <p>Reliable local supply of the injectable medicines that patients, hospitals and clinics depend on every day.</p>
+        </div>
+      </article>
+      <article class="tile">
+        <div class="tile-img"><img src="images/focus-tile-2.webp" alt="Parents cradling their newborn baby's feet in their hands" loading="lazy" style="object-position:50% 45%"></div>
+        <div class="tile-body">
+          <div class="tile-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/><path d="M9 11h6M12 8v6"/></svg></div>
+          <h3>Maternal health</h3>
+          <p>Products that prevent and manage postpartum hemorrhage, helping to reduce maternal death rates in Africa so more mothers come home safely after childbirth.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VISION & MISSION -->
+<section class="vm" id="vision">
+  <div class="wrap">
+    <div class="vm-panel reveal">
+      <div class="vm-top">
+        <div>
+          <span class="kicker">Where we are headed</span>
+          <h2>Our vision and mission</h2>
+        </div>
+        <figure class="vm-photo"><img src="images/vision-mission-photo.webp" alt="Window lettering reading: We care about the future" loading="lazy"></figure>
+      </div>
+      <div class="vm-grid">
+        <div class="vm-card vision">
+          <div class="head"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Vision</h3></div>
+          <p>To become a trusted and competitive African pharmaceutical leader, delivering innovative, locally manufactured medicines while advancing health security and sustainable value creation across the continent.</p>
+        </div>
+        <div class="vm-card mission">
+          <div class="head"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span><h3>Mission</h3></div>
+          <p>To manufacture and deliver safe, effective, and affordable medicines through quality-driven production, strategic partnerships, and disciplined investment; expand access to priority treatments; develop local talent and supply chains; and build a resilient pharmaceutical enterprise that creates sustainable value for patients, partners, investors, and communities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="sec values" id="values">
+  <div class="wrap">
+    <div class="sec-head center-head">
+      <span class="kicker">What guides us</span>
+      <h2>Our core values</h2>
+    </div>
+    <div class="honey">
+      <div class="hex"><div class="hex-in"><span class="hex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>Quality and patient safety</h3><p>Upholding rigorous standards in every product and process.</p></div></div>
+      <div class="hex"><div class="hex-in"><span class="hex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg></span><h3>Integrity and accountability</h3><p>Operating transparently, ethically, and responsibly.</p></div></div>
+      <div class="hex"><div class="hex-in"><span class="hex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span><h3>Research and innovation</h3><p>Investing in research and applying modern technologies to deliver competitive solutions.</p></div></div>
+      <div class="hex"><div class="hex-in"><span class="hex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><h3>Affordability and access</h3><p>Expanding access to essential medicines without compromising quality.</p></div></div>
+      <div class="hex"><div class="hex-in"><span class="hex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 3-3M14 14l2.5 2.5a1 1 0 0 0 3-3l-3.9-3.9a2 2 0 0 0-2.8 0l-.9.9a1.4 1.4 0 0 1-2-2L12.6 6a5 5 0 0 1 6 .8l2.4 2.4M3 11l4.5-4.5M3 11l5 5 2-2M21 9.2 17 13"/></svg></span><h3>Partnership</h3><p>Building trusted relationships with governments, investors, providers, suppliers, and communities.</p></div></div>
+      <div class="hex"><div class="hex-in"><span class="hex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12c0-5 3-8 8-8 0 5-3 8-8 8zM12 15c0-3.5-2.2-6-6-6 0 3.5 2.2 6 6 6z"/></svg></span><h3>Local impact and sustainability</h3><p>Developing African talent and local value chains for responsible, long-term growth.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="sec obj" id="objectives">
+  <div class="wrap obj-grid">
+    <div class="obj-aside">
+      <span class="kicker">How we will get there</span>
+      <h2>Strategic objectives</h2>
+      <p class="lede">A clear, disciplined plan to build African pharmaceutical capacity that lasts.</p>
+      <div class="orbit" aria-hidden="true">
+        <svg class="ring" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="none" stroke="#86B35E" stroke-width="1.2" stroke-dasharray="3 7"/><circle cx="100" cy="100" r="78" fill="none" stroke="#6F8DB5" stroke-opacity=".5" stroke-width="1"/><circle cx="100" cy="8" r="5" fill="#86B35E"/><circle cx="178" cy="100" r="4" fill="#2F5687"/><circle cx="35" cy="165" r="3.5" fill="#5E8B3A"/></svg>
+        <img src="images/story-photo.webp" alt="">
+      </div>
+    </div>
+    <ul class="obj-list">
+      <li class="obj-item"><span class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l5 3V10l5 3V6l4 2v13M9 17h1M14 17h1"/></svg></span><div><h3>Modern manufacturing</h3><p>Establish modern, scalable, and quality-compliant pharmaceutical manufacturing facilities in Kenya and Tanzania.</p></div></li>
+      <li class="obj-item"><span class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="m9.2 8.1 5.6 7.8"/></svg></span><div><h3>A focused portfolio</h3><p>Build a commercially viable product portfolio focused on non-communicable diseases and essential injectable medicines.</p></div></li>
+      <li class="obj-item"><span class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span><div><h3>Approvals and market access</h3><p>Secure regulatory approvals and expand market access across Eastern and Southern Africa, followed by broader continental growth.</p></div></li>
+      <li class="obj-item"><span class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 3-3M14 14l2.5 2.5a1 1 0 0 0 3-3l-3.9-3.9a2 2 0 0 0-2.8 0l-.9.9a1.4 1.4 0 0 1-2-2L12.6 6a5 5 0 0 1 6 .8l2.4 2.4M3 11l4.5-4.5M3 11l5 5 2-2"/></svg></span><div><h3>Strategic partnerships</h3><p>Develop financing, technology, distribution, and public-sector partnerships that accelerate scale and reduce execution risk.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CARE IN ACTION -->
+<section class="sec" id="impact" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="sec-head center-head">
+      <span class="kicker">From the lab to the patient</span>
+      <h2>Health, made in Africa</h2>
+      <p class="lede" style="margin-top:16px">Research-led production, medicines health workers can rely on, and care that reaches every generation.</p>
+    </div>
+    <div class="mosaic">
+      <figure class="m-tile tall"><img src="images/team-mosaic-1.webp" alt="A scientist in a lab coat examining a sample under a microscope" loading="lazy"><figcaption><strong>Research-led quality</strong><span>Modern technology and rigorous standards in every product and process.</span></figcaption></figure>
+      <figure class="m-tile wide"><img src="images/team-mosaic-2.webp" alt="A mother carrying her baby on her back in a rural village" loading="lazy" style="object-position:60% 45%"><figcaption><strong>Care for every generation</strong><span>Healthier mothers, children and families across Africa.</span></figcaption></figure>
+      <figure class="m-tile"><img src="images/team-mosaic-3.webp" alt="A clinician with a stethoscope reviewing notes on a tablet" loading="lazy"><figcaption><strong>Trusted by clinicians</strong></figcaption></figure>
+      <figure class="m-tile"><img src="images/team-mosaic-4.webp" alt="A technician working with precision instruments" loading="lazy" style="object-position:50% 35%"><figcaption><strong>Precision in every detail</strong></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER -->
+<section class="partner" id="partner">
+  <div class="wrap">
+    <div class="partner-card reveal">
+      <div class="partner-copy">
+        <span class="kicker">For investors and partners</span>
+        <p class="script">A healthier Africa <span class="u">starts here.</span></p>
+        <p class="lede">Afrinova offers investors a robust business opportunity with lasting health and economic benefits.</p>
+        <ul class="reasons">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Reduces Africa's reliance on imported pharmaceuticals</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Targets high-need areas: chronic disease, injectables and maternal health</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Creates skilled local jobs and stronger supply chains</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Built on disciplined governance and risk management</li>
+        </ul>
+        <div class="hero-actions" style="opacity:1;animation:none;margin-top:0">
+          <a class="btn btn-primary" href="#contact">Start a conversation</a>
+          <button class="btn btn-wa" type="button" data-wa-open><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>Chat on WhatsApp</button>
+        </div>
+      </div>
+      <div class="partner-img"><img src="images/partners-photo.webp" alt="Four hands linked together in a square over green grass" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Together for better health</span>
+      <h2>Get in touch</h2>
+      <p class="lede" style="margin-top:16px">Ask us anything about Afrinova, partnership opportunities or our plans. We reply on WhatsApp and email.</p>
+    </div>
+    <div class="contact-grid">
+        <div class="branches">
+          <div class="branch ke">
+            <div class="branch-head"><span class="flag flag-ke" aria-hidden="true"></span><span><small>Kenya branch</small><strong>Afrinova Kenya</strong></span></div>
+            <a class="b-line" href="tel:+254728780196"><span class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>+254 728 780 196</a>
+            <a class="b-line wa" href="https://wa.me/254728780196?text=Hello%20Afrinova%20Pharmaceuticals%2C%20I%27d%20like%20to%20know%20more%20about%20your%20company." target="_blank" rel="noopener"><span class="b-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg></span>WhatsApp Kenya</a>
+          </div>
+          <div class="branch tz">
+            <div class="branch-head"><span class="flag flag-tz" aria-hidden="true"></span><span><small>Tanzania branch</small><strong>Afrinova Tanzania</strong></span></div>
+            <a class="b-line" href="tel:+255713445251"><span class="b-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>+255 713 445 251</a>
+            <a class="b-line wa" href="https://wa.me/255713445251?text=Hello%20Afrinova%20Pharmaceuticals%2C%20I%27d%20like%20to%20know%20more%20about%20your%20company." target="_blank" rel="noopener"><span class="b-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg></span>WhatsApp Tanzania</a>
+          </div>
+        </div>
+        <div class="contact-side">
+        <div class="c-cards">
+          <a class="c-card mail" href="mailto:info@afrinovapharma.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span><span><small>Email both branches</small><strong>info@afrinovapharma.com</strong></span></a>
+        </div>
+        <div class="leader">
+          <span class="ini">BM</span>
+          <span><strong>Betty Mupenda</strong><span>CEO and Chairperson, Afrinova Pharmaceuticals Limited</span></span>
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="images/footer-photo.webp" alt="Afrinova Pharmaceuticals logo: Quality, affordable medications, accessible to all" width="301" height="340">
+        <p class="foot-motto">Innovating for a healthier Africa.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#about">About us</a></li><li><a href="#focus">Our focus</a></li><li><a href="#vision">Vision and mission</a></li><li><a href="#values">Core values</a></li><li><a href="#objectives">Strategic objectives</a></li><li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@afrinovapharma.com">info@afrinovapharma.com</a></li>
+          <li><a href="tel:+254728780196">Kenya: +254 728 780 196</a></li>
+          <li><a href="tel:+255713445251">Tanzania: +255 713 445 251</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="yr">2026</span> Afrinova Pharmaceuticals Limited. All rights reserved.</span>
+      <span>www.afrinovapharma.com</span>
+    </div>
+  </div>
+</footer>
+<span class="foot-wave" aria-hidden="true"></span>
+
+<!-- WhatsApp chat bubble -->
+<div class="wa-float">
+  <div class="wa-pop" id="waPop" role="dialog" aria-label="Chat with Afrinova on WhatsApp">
+    <button class="wa-close" id="waClose" aria-label="Close">&times;</button>
+    <div class="who"><span class="dot"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg></span><span><strong>Afrinova Pharmaceuticals</strong><small>Usually replies within a day</small></span></div>
+    <p>Hello! Have a question about Afrinova or partnering with us? Choose a branch to chat on WhatsApp.</p>
+    <div class="wa-choices">
+      <a class="wa-choice" href="https://wa.me/254728780196?text=Hello%20Afrinova%20Pharmaceuticals%2C%20I%27d%20like%20to%20know%20more%20about%20your%20company." target="_blank" rel="noopener"><span class="flag flag-ke" aria-hidden="true"></span><span>Kenya branch<small>+254 728 780 196</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="wa-choice" href="https://wa.me/255713445251?text=Hello%20Afrinova%20Pharmaceuticals%2C%20I%27d%20like%20to%20know%20more%20about%20your%20company." target="_blank" rel="noopener"><span class="flag flag-tz" aria-hidden="true"></span><span>Tanzania branch<small>+255 713 445 251</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+  <button class="wa-btn" id="waBtn" type="button" aria-label="Chat with Afrinova on WhatsApp" aria-expanded="false" aria-controls="waPop"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg></button>
+</div>
+
+<script>
+(function(){
+  var WA = {ke:"254728780196", tz:"255713445251"};
+  var EMAIL = "info@afrinovapharma.com";
+
+  // header state
+  var header = document.querySelector('.site-header');
+  function onScroll(){ header.classList.toggle('scrolled', window.scrollY > 10); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mobile menu
+  var btn = document.getElementById('menuBtn');
+  btn.addEventListener('click', function(){
+    var open = document.body.classList.toggle('menu-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', t(open ? 'Close menu' : 'Open menu'));
+  });
+  document.querySelectorAll('#navLinks a').forEach(function(a){
+    a.addEventListener('click', function(){ document.body.classList.remove('menu-open'); btn.setAttribute('aria-expanded','false'); });
+  });
+
+  // ---------- language switcher ----------
+  var I18N = {"Afrinova Pharmaceuticals | Innovating for a healthier Africa": ["Afrinova Pharmaceuticals | Innover pour une Afrique en meilleure santé", "Afrinova Pharmaceuticals | Innovando por una África más saludable"], "About us": ["À propos", "Quiénes somos"], "Our focus": ["Nos domaines", "Nuestro enfoque"], "Vision & mission": ["Vision et mission", "Visión y misión"], "Values": ["Valeurs", "Valores"], "Objectives": ["Objectifs", "Objetivos"], "Partner with us": ["Devenir partenaire", "Asóciese con nosotros"], "Coming soon": ["Bientôt", "Próximamente"], "Building Africa's next pharmaceutical manufacturer": ["Le futur fabricant pharmaceutique de l'Afrique", "Construyendo el próximo fabricante farmacéutico de África"], "Innovating": ["Innover pour", "Innovando por"], "for a healthier": ["une Afrique en", "una África más"], "Africa.": ["meilleure santé.", "saludable."], "Afrinova Pharmaceuticals is bringing quality, affordable, locally manufactured medicines closer to the people who need them, starting in Eastern and Southern Africa.": ["Afrinova Pharmaceuticals rapproche des médicaments de qualité, abordables et fabriqués localement des personnes qui en ont besoin, en commençant par l'Afrique de l'Est et l'Afrique australe.", "Afrinova Pharmaceuticals acerca medicamentos de calidad, asequibles y fabricados localmente a las personas que los necesitan, comenzando por África Oriental y Austral."], "Learn about Afrinova": ["Découvrir Afrinova", "Conozca Afrinova"], "Kenya and Tanzania": ["Kenya et Tanzanie", "Kenia y Tanzania"], "Quality and patient safety first": ["La qualité et la sécurité des patients avant tout", "Calidad y seguridad del paciente ante todo"], "Maternal health": ["Santé maternelle", "Salud materna"], "Safer childbirth": ["Des accouchements plus sûrs", "Partos más seguros"], "NCD care": ["Maladies chroniques", "Enfermedades crónicas"], "Chronic treatments": ["Traitements au long cours", "Tratamientos crónicos"], "Quality, affordable medicines": ["Des médicaments de qualité et abordables", "Medicamentos de calidad y asequibles"], "Accessible to all": ["Accessibles à tous", "Accesibles para todos"], "Made in Africa": ["Fabriqué en Afrique", "Hecho en África"], "Local manufacturing": ["Production locale", "Producción local"], "50 to 500 jobs": ["50 à 500 emplois", "De 50 a 500 empleos"], "Over ten years": ["Sur dix ans", "En diez años"], "Innovating for a healthier Africa": ["Innover pour une Afrique en meilleure santé", "Innovando por una África más saludable"], "Quality, affordable medications, accessible to all": ["Des médicaments de qualité et abordables, accessibles à tous", "Medicamentos de calidad y asequibles, accesibles para todos"], "Together for better health": ["Ensemble pour une meilleure santé", "Juntos por una mejor salud"], "Who we are": ["Qui sommes-nous", "Quiénes somos"], "Medicines made closer to the people who need them": ["Des médicaments fabriqués au plus près de ceux qui en ont besoin", "Medicamentos fabricados cerca de quienes los necesitan"], "Afrinova Pharmaceuticals Limited is dedicated to bringing high-quality, affordable medicines closer to the people who need them. We focus on treatments for non-communicable diseases and essential injectable medicines, including products that prevent and manage postpartum hemorrhage during childbirth.": ["Afrinova Pharmaceuticals Limited s'engage à rapprocher des médicaments de haute qualité et abordables des personnes qui en ont besoin. Nous nous concentrons sur les traitements des maladies non transmissibles et sur les médicaments injectables essentiels, notamment des produits qui préviennent et prennent en charge l'hémorragie du post-partum lors de l'accouchement.", "Afrinova Pharmaceuticals Limited se dedica a acercar medicamentos de alta calidad y asequibles a las personas que los necesitan. Nos centramos en tratamientos para enfermedades no transmisibles y medicamentos inyectables esenciales, incluidos productos que previenen y controlan la hemorragia posparto durante el parto."], "Starting in Eastern and Southern Africa, Afrinova aims to expand across the continent, reducing Africa's reliance on imported pharmaceuticals while strengthening access to essential healthcare.": ["En commençant par l'Afrique de l'Est et l'Afrique australe, Afrinova ambitionne de se développer sur tout le continent, en réduisant la dépendance de l'Afrique aux produits pharmaceutiques importés tout en renforçant l'accès aux soins essentiels.", "Comenzando en África Oriental y Austral, Afrinova aspira a expandirse por todo el continente, reduciendo la dependencia de África de los productos farmacéuticos importados y reforzando el acceso a la atención sanitaria esencial."], "50 to 500": ["50 à 500", "De 50 a 500"], "Direct jobs expected over the next ten years": ["Emplois directs prévus au cours des dix prochaines années", "Empleos directos previstos en los próximos diez años"], "2 nations": ["2 pays", "2 países"], "Manufacturing planned in Kenya and Tanzania": ["Production prévue au Kenya et en Tanzanie", "Producción prevista en Kenia y Tanzania"], "1 continent": ["1 continent", "1 continente"], "East and Southern Africa first, then beyond": ["L'Afrique de l'Est et australe d'abord, puis au-delà", "Primero África Oriental y Austral, después más allá"], "innovating for a healthier Africa • innovating for a healthier Africa •": ["innover pour une Afrique en meilleure santé • innover pour une Afrique en meilleure santé •", "innovando por una África más saludable • innovando por una África más saludable •"], "What we will make": ["Ce que nous fabriquerons", "Lo que fabricaremos"], "Three areas where access saves lives": ["Trois domaines où l'accès sauve des vies", "Tres áreas donde el acceso salva vidas"], "Our product portfolio is built around the treatments that African patients and health systems need most.": ["Notre portefeuille de produits est construit autour des traitements dont les patients et les systèmes de santé africains ont le plus besoin.", "Nuestra cartera de productos se basa en los tratamientos que más necesitan los pacientes y los sistemas de salud africanos."], "Non-communicable diseases": ["Maladies non transmissibles", "Enfermedades no transmisibles"], "Affordable, quality treatments for chronic conditions that affect millions of families across the continent.": ["Des traitements abordables et de qualité pour les maladies chroniques qui touchent des millions de familles sur le continent.", "Tratamientos asequibles y de calidad para las enfermedades crónicas que afectan a millones de familias en el continente."], "Essential injectables": ["Injectables essentiels", "Inyectables esenciales"], "Reliable local supply of the injectable medicines that hospitals and clinics depend on every day.": ["Un approvisionnement local fiable en médicaments injectables dont les hôpitaux et les cliniques dépendent chaque jour.", "Suministro local fiable de los medicamentos inyectables de los que dependen a diario hospitales y clínicas."], "Products that prevent and manage postpartum hemorrhage, so more mothers come home safely after childbirth.": ["Des produits qui préviennent et prennent en charge l'hémorragie du post-partum, pour que davantage de mères rentrent chez elles en sécurité après l'accouchement.", "Productos que previenen y controlan la hemorragia posparto, para que más madres vuelvan a casa sanas y salvas después del parto."], "Where we are headed": ["Notre cap", "Hacia dónde vamos"], "Our vision and mission": ["Notre vision et notre mission", "Nuestra visión y misión"], "Vision": ["Vision", "Visión"], "To become a trusted and competitive African pharmaceutical leader, delivering innovative, locally manufactured medicines while advancing health security and sustainable value creation across the continent.": ["Devenir un leader pharmaceutique africain de confiance et compétitif, fournissant des médicaments innovants fabriqués localement, tout en faisant progresser la sécurité sanitaire et la création de valeur durable sur tout le continent.", "Convertirnos en un líder farmacéutico africano fiable y competitivo, que ofrezca medicamentos innovadores fabricados localmente e impulse la seguridad sanitaria y la creación de valor sostenible en todo el continente."], "Mission": ["Mission", "Misión"], "To manufacture and deliver safe, effective, and affordable medicines through quality-driven production, strategic partnerships, and disciplined investment; expand access to priority treatments; develop local talent and supply chains; and build a resilient pharmaceutical enterprise that creates sustainable value for patients, partners, investors, and communities.": ["Fabriquer et fournir des médicaments sûrs, efficaces et abordables grâce à une production axée sur la qualité, des partenariats stratégiques et des investissements rigoureux ; élargir l'accès aux traitements prioritaires ; développer les talents et les chaînes d'approvisionnement locaux ; et bâtir une entreprise pharmaceutique résiliente qui crée une valeur durable pour les patients, les partenaires, les investisseurs et les communautés.", "Fabricar y suministrar medicamentos seguros, eficaces y asequibles mediante una producción orientada a la calidad, alianzas estratégicas e inversión disciplinada; ampliar el acceso a tratamientos prioritarios; desarrollar el talento y las cadenas de suministro locales; y construir una empresa farmacéutica resiliente que genere valor sostenible para pacientes, socios, inversores y comunidades."], "What guides us": ["Ce qui nous guide", "Lo que nos guía"], "Our core values": ["Nos valeurs fondamentales", "Nuestros valores fundamentales"], "Quality and patient safety": ["Qualité et sécurité des patients", "Calidad y seguridad del paciente"], "Upholding rigorous standards in every product and process.": ["Des normes rigoureuses pour chaque produit et chaque processus.", "Normas rigurosas en cada producto y proceso."], "Integrity and accountability": ["Intégrité et responsabilité", "Integridad y responsabilidad"], "Operating transparently, ethically, and responsibly.": ["Agir avec transparence, éthique et responsabilité.", "Actuar con transparencia, ética y responsabilidad."], "Innovation": ["Innovation", "Innovación"], "Applying modern technologies and continuous improvement to deliver competitive solutions.": ["Mettre les technologies modernes et l'amélioration continue au service de solutions compétitives.", "Aplicar tecnologías modernas y mejora continua para ofrecer soluciones competitivas."], "Affordability and access": ["Accessibilité et prix abordables", "Asequibilidad y acceso"], "Expanding access to essential medicines without compromising quality.": ["Élargir l'accès aux médicaments essentiels sans compromis sur la qualité.", "Ampliar el acceso a medicamentos esenciales sin comprometer la calidad."], "Partnership": ["Partenariat", "Colaboración"], "Building trusted relationships with governments, investors, providers, suppliers, and communities.": ["Bâtir des relations de confiance avec les gouvernements, les investisseurs, les prestataires de soins, les fournisseurs et les communautés.", "Construir relaciones de confianza con gobiernos, inversores, proveedores de salud, proveedores y comunidades."], "Local impact and sustainability": ["Impact local et durabilité", "Impacto local y sostenibilidad"], "Developing African talent and local value chains for responsible, long-term growth.": ["Développer les talents africains et les chaînes de valeur locales pour une croissance responsable et durable.", "Desarrollar el talento africano y las cadenas de valor locales para un crecimiento responsable y a largo plazo."], "How we will get there": ["Comment nous y parviendrons", "Cómo lo lograremos"], "Strategic objectives": ["Objectifs stratégiques", "Objetivos estratégicos"], "A clear, disciplined plan to build African pharmaceutical capacity that lasts.": ["Un plan clair et rigoureux pour bâtir une capacité pharmaceutique africaine durable.", "Un plan claro y disciplinado para construir una capacidad farmacéutica africana duradera."], "Modern manufacturing": ["Une production moderne", "Producción moderna"], "Establish modern, scalable, and quality-compliant pharmaceutical manufacturing facilities in Kenya and Tanzania.": ["Établir au Kenya et en Tanzanie des sites de production pharmaceutique modernes, évolutifs et conformes aux normes de qualité.", "Establecer en Kenia y Tanzania plantas de producción farmacéutica modernas, escalables y conformes con las normas de calidad."], "A focused portfolio": ["Un portefeuille ciblé", "Una cartera enfocada"], "Build a commercially viable product portfolio focused on non-communicable diseases and essential injectable medicines.": ["Constituer un portefeuille de produits commercialement viable, axé sur les maladies non transmissibles et les médicaments injectables essentiels.", "Crear una cartera de productos comercialmente viable centrada en enfermedades no transmisibles y medicamentos inyectables esenciales."], "Approvals and market access": ["Homologations et accès au marché", "Aprobaciones y acceso al mercado"], "Secure regulatory approvals and expand market access across Eastern and Southern Africa, followed by broader continental growth.": ["Obtenir les autorisations réglementaires et étendre l'accès au marché en Afrique de l'Est et australe, puis à l'ensemble du continent.", "Obtener las aprobaciones regulatorias y ampliar el acceso al mercado en África Oriental y Austral, seguido de un crecimiento continental más amplio."], "Strategic partnerships": ["Partenariats stratégiques", "Alianzas estratégicas"], "Develop financing, technology, distribution, and public-sector partnerships that accelerate scale and reduce execution risk.": ["Développer des partenariats de financement, technologiques, de distribution et avec le secteur public qui accélèrent la croissance et réduisent les risques d'exécution.", "Desarrollar alianzas de financiación, tecnología, distribución y con el sector público que aceleren el crecimiento y reduzcan el riesgo de ejecución."], "Local strength": ["Des forces locales", "Fortaleza local"], "Strengthen local sourcing, workforce capability, and operational efficiency to support competitive production.": ["Renforcer l'approvisionnement local, les compétences de la main-d'œuvre et l'efficacité opérationnelle au service d'une production compétitive.", "Reforzar el abastecimiento local, la capacidad de la fuerza laboral y la eficiencia operativa para una producción competitiva."], "Jobs and economic value": ["Emplois et valeur économique", "Empleo y valor económico"], "Create between 50 and 500 direct jobs as operations expand, generating measurable health, industrial, and economic value.": ["Créer entre 50 et 500 emplois directs au fil de l'expansion, en générant une valeur sanitaire, industrielle et économique mesurable.", "Crear entre 50 y 500 empleos directos a medida que crezcan las operaciones, generando un valor sanitario, industrial y económico medible."], "Sustainable returns": ["Des rendements durables", "Rentabilidad sostenible"], "Deliver long-term returns through disciplined governance, responsible growth, and effective risk management.": ["Offrir des rendements à long terme grâce à une gouvernance rigoureuse, une croissance responsable et une gestion efficace des risques.", "Ofrecer rentabilidad a largo plazo mediante una gobernanza disciplinada, un crecimiento responsable y una gestión eficaz de los riesgos."], "From the lab to the patient": ["Du laboratoire au patient", "Del laboratorio al paciente"], "Health, made in Africa": ["La santé, fabriquée en Afrique", "Salud, hecha en África"], "Research-led production, medicines health workers can rely on, and care that reaches every generation.": ["Une production guidée par la recherche, des médicaments sur lesquels les soignants peuvent compter et des soins pour toutes les générations.", "Producción guiada por la investigación, medicamentos en los que confían los profesionales sanitarios y una atención que llega a todas las generaciones."], "Research-led quality": ["Une qualité guidée par la recherche", "Calidad guiada por la investigación"], "Modern technology and rigorous standards in every product and process.": ["Des technologies modernes et des normes rigoureuses pour chaque produit et processus.", "Tecnología moderna y normas rigurosas en cada producto y proceso."], "Care for every generation": ["Des soins pour chaque génération", "Atención para cada generación"], "Affordable treatment for the chronic conditions families live with.": ["Des traitements abordables pour les maladies chroniques qui touchent les familles.", "Tratamientos asequibles para las enfermedades crónicas con las que viven las familias."], "Trusted by clinicians": ["La confiance des soignants", "La confianza de los profesionales"], "Stronger health systems": ["Des systèmes de santé renforcés", "Sistemas de salud más fuertes"], "For investors and partners": ["Pour les investisseurs et partenaires", "Para inversores y socios"], "A healthier Africa": ["Une Afrique en meilleure santé", "Una África más saludable"], "starts here.": ["commence ici.", "empieza aquí."], "Afrinova offers investors a robust business opportunity with lasting health and economic benefits.": ["Afrinova offre aux investisseurs une opportunité commerciale solide, porteuse de bénéfices sanitaires et économiques durables.", "Afrinova ofrece a los inversores una sólida oportunidad de negocio con beneficios sanitarios y económicos duraderos."], "Reduces Africa's reliance on imported pharmaceuticals": ["Réduit la dépendance de l'Afrique aux médicaments importés", "Reduce la dependencia de África de los medicamentos importados"], "Targets high-need areas: chronic disease, injectables and maternal health": ["Cible des besoins majeurs : maladies chroniques, injectables et santé maternelle", "Se centra en áreas de gran necesidad: enfermedades crónicas, inyectables y salud materna"], "Creates skilled local jobs and stronger supply chains": ["Crée des emplois locaux qualifiés et des chaînes d'approvisionnement plus solides", "Crea empleo local cualificado y cadenas de suministro más sólidas"], "Built on disciplined governance and risk management": ["Repose sur une gouvernance et une gestion des risques rigoureuses", "Se apoya en una gobernanza y gestión de riesgos disciplinadas"], "Start a conversation": ["Engager la conversation", "Iniciar una conversación"], "Chat on WhatsApp": ["Discuter sur WhatsApp", "Chatear por WhatsApp"], "Get in touch": ["Contactez-nous", "Contáctenos"], "Ask us anything about Afrinova, partnership opportunities or our plans. We reply on WhatsApp and email.": ["Posez-nous toutes vos questions sur Afrinova, les opportunités de partenariat ou nos projets. Nous répondons sur WhatsApp et par e-mail.", "Pregúntenos lo que quiera sobre Afrinova, oportunidades de colaboración o nuestros planes. Respondemos por WhatsApp y correo electrónico."], "Kenya branch": ["Filiale Kenya", "Sucursal de Kenia"], "Afrinova Kenya": ["Afrinova Kenya", "Afrinova Kenia"], "WhatsApp Kenya": ["WhatsApp Kenya", "WhatsApp Kenia"], "Kenya": ["Kenya", "Kenia"], "Tanzania branch": ["Filiale Tanzanie", "Sucursal de Tanzania"], "Afrinova Tanzania": ["Afrinova Tanzanie", "Afrinova Tanzania"], "WhatsApp Tanzania": ["WhatsApp Tanzanie", "WhatsApp Tanzania"], "Tanzania": ["Tanzanie", "Tanzania"], "Dar es Salaam, Tanzania": ["Dar es Salaam, Tanzanie", "Dar es Salaam, Tanzania"], "Email both branches": ["E-mail des deux filiales", "Correo de ambas sucursales"], "CEO and Chairperson, Afrinova Pharmaceuticals Limited": ["Directrice générale et présidente, Afrinova Pharmaceuticals Limited", "Directora general y presidenta, Afrinova Pharmaceuticals Limited"], "Send an enquiry": ["Envoyer une demande", "Enviar una consulta"], "Fill this in and choose how to send it. Your message opens ready to go.": ["Remplissez ce formulaire et choisissez comment l'envoyer. Votre message s'ouvre prêt à partir.", "Complete este formulario y elija cómo enviarlo. Su mensaje se abrirá listo para enviar."], "Full name": ["Nom complet", "Nombre completo"], "Organisation": ["Organisation", "Organización"], "Branch": ["Filiale", "Sucursal"], "I'm interested in": ["Je suis intéressé(e) par", "Me interesa"], "Investing in Afrinova": ["Investir dans Afrinova", "Invertir en Afrinova"], "A strategic partnership": ["Un partenariat stratégique", "Una alianza estratégica"], "Distribution or supply": ["La distribution ou l'approvisionnement", "Distribución o suministro"], "Careers": ["Les carrières", "Empleo"], "A general question": ["Une question générale", "Una pregunta general"], "Message": ["Message", "Mensaje"], "Send by email": ["Envoyer par e-mail", "Enviar por correo"], "Send on WhatsApp": ["Envoyer sur WhatsApp", "Enviar por WhatsApp"], "Innovating for a healthier Africa.": ["Innover pour une Afrique en meilleure santé.", "Innovando por una África más saludable."], "Explore": ["Explorer", "Explorar"], "Vision and mission": ["Vision et mission", "Visión y misión"], "Core values": ["Valeurs fondamentales", "Valores fundamentales"], "Contact": ["Contact", "Contacto"], "Kenya: +254 728 780 196": ["Kenya : +254 728 780 196", "Kenia: +254 728 780 196"], "Tanzania: +255 713 445 251": ["Tanzanie : +255 713 445 251", "Tanzania: +255 713 445 251"], "Afrinova Pharmaceuticals Limited. All rights reserved.": ["Afrinova Pharmaceuticals Limited. Tous droits réservés.", "Afrinova Pharmaceuticals Limited. Todos los derechos reservados."], "Usually replies within a day": ["Répond généralement sous 24 h", "Suele responder en un día"], "Hello! Have a question about Afrinova or partnering with us? Choose a branch to chat on WhatsApp.": ["Bonjour ! Une question sur Afrinova ou sur un partenariat ? Choisissez une filiale pour discuter sur WhatsApp.", "¡Hola! ¿Tiene alguna pregunta sobre Afrinova o sobre colaborar con nosotros? Elija una sucursal para chatear por WhatsApp."], "Optional": ["Facultatif", "Opcional"], "Tell us a little about what you'd like to discuss": ["Dites-nous en quelques mots ce dont vous souhaitez parler", "Cuéntenos brevemente de qué le gustaría hablar"], "Open menu": ["Ouvrir le menu", "Abrir menú"], "Close menu": ["Fermer le menu", "Cerrar menú"], "Close": ["Fermer", "Cerrar"], "Chat with Afrinova on WhatsApp": ["Discuter avec Afrinova sur WhatsApp", "Chatear con Afrinova por WhatsApp"], "Choose language": ["Choisir la langue", "Elegir idioma"], "Add your name and a message, then choose how to send it.": ["Indiquez votre nom et un message, puis choisissez comment l'envoyer.", "Añada su nombre y un mensaje y elija cómo enviarlo."], "Your email app should open with the message ready to send.": ["Votre application de messagerie devrait s'ouvrir avec le message prêt à être envoyé.", "Su aplicación de correo debería abrirse con el mensaje listo para enviar."], "WhatsApp opened in a new tab with your message ready to send.": ["WhatsApp s'est ouvert dans un nouvel onglet avec votre message prêt à être envoyé.", "WhatsApp se abrió en una nueva pestaña con su mensaje listo para enviar."], "Enquiry": ["Demande", "Consulta"], "__greet": ["Bonjour Afrinova Pharmaceuticals, je souhaiterais en savoir plus sur votre entreprise.", "Hola Afrinova Pharmaceuticals, me gustaría saber más sobre su empresa."], "__msg": ["Bonjour Afrinova Pharmaceuticals,\n\nJe m'appelle {name}{org}. Je contacte la filiale {branch} et je suis intéressé(e) par : {topic}.\n\n{msg}\n\nMerci.", "Hola Afrinova Pharmaceuticals:\n\nMe llamo {name}{org}. Me pongo en contacto con la sucursal de {branch} y me interesa: {topic}.\n\n{msg}\n\nGracias."], "__from": [" de ", " de "], "Reliable local supply of the injectable medicines that patients, hospitals and clinics depend on every day.": ["Un approvisionnement local fiable en médicaments injectables dont les patients, les hôpitaux et les cliniques dépendent chaque jour.", "Suministro local fiable de los medicamentos inyectables de los que dependen a diario pacientes, hospitales y clínicas."], "Products that prevent and manage postpartum hemorrhage, helping to reduce maternal death rates in Africa so more mothers come home safely after childbirth.": ["Des produits qui préviennent et prennent en charge l'hémorragie du post-partum, pour contribuer à réduire la mortalité maternelle en Afrique et permettre à davantage de mères de rentrer chez elles en sécurité après l'accouchement.", "Productos que previenen y controlan la hemorragia posparto, para ayudar a reducir la mortalidad materna en África y que más madres vuelvan a casa sanas y salvas después del parto."], "Research and innovation": ["Recherche et innovation", "Investigación e innovación"], "Investing in research and applying modern technologies to deliver competitive solutions.": ["Investir dans la recherche et mettre les technologies modernes au service de solutions compétitives.", "Invertir en investigación y aplicar tecnologías modernas para ofrecer soluciones competitivas."], "Healthier mothers, children and families across Africa.": ["Des mères, des enfants et des familles en meilleure santé à travers l'Afrique.", "Madres, niños y familias más sanos en toda África."], "Precision in every detail": ["La précision dans chaque détail", "Precisión en cada detalle"]};
+  var EN_SPECIAL = {"__greet": "Hello Afrinova Pharmaceuticals, I'd like to know more about your company.", "__msg": "Hello Afrinova Pharmaceuticals,\n\nI am {name}{org}. I am contacting the {branch} branch and I am interested in: {topic}.\n\n{msg}\n\nThank you.", "__from": " from "};
+  var LANG = 'en';
+  var LANG_IDX = {fr:0, es:1};
+  function t(s){ if (LANG === 'en') return EN_SPECIAL[s] !== undefined ? EN_SPECIAL[s] : s; var e = I18N[s]; return e ? e[LANG_IDX[LANG]] : (EN_SPECIAL[s] || s); }
+  var textNodes = [];
+  (function collect(){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {acceptNode:function(n){
+      var p = n.parentElement; if (!p || p.closest('script,style,[data-no-i18n]')) return NodeFilter.FILTER_REJECT;
+      var k = n.nodeValue.replace(/\s+/g,' ').trim();
+      return (k && I18N[k]) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }});
+    var n; while ((n = w.nextNode())) {
+      var m = n.nodeValue.match(/^(\s*)([\s\S]*?)(\s*)$/);
+      textNodes.push({n:n, lead:m[1], key:m[2].replace(/\s+/g,' '), trail:m[3]});
+    }
+  })();
+  var attrNodes = [];
+  document.querySelectorAll('[placeholder],[aria-label]').forEach(function(el){
+    if (el.closest('[data-no-i18n]') && el.id !== 'langBtn') return;
+    ['placeholder','aria-label'].forEach(function(a){ var v = el.getAttribute(a); if (v && I18N[v]) attrNodes.push({el:el, a:a, key:v}); });
+  });
+  var waGreetLinks = document.querySelectorAll('a[href^="https://wa.me/"]');
+  function setLang(lang){
+    LANG = (lang === 'fr' || lang === 'es') ? lang : 'en';
+    textNodes.forEach(function(o){ o.n.nodeValue = o.lead + t(o.key) + o.trail; });
+    attrNodes.forEach(function(o){ o.el.setAttribute(o.a, t(o.key)); });
+    document.documentElement.lang = LANG;
+    document.title = t('Afrinova Pharmaceuticals | Innovating for a healthier Africa');
+    var motto = document.querySelector('.motto');
+    motto.setAttribute('aria-label', t('Innovating for a healthier Africa.'));
+    waGreetLinks.forEach(function(a){ a.href = a.href.split('?')[0] + '?text=' + encodeURIComponent(t('__greet')); });
+    document.getElementById('langCode').textContent = LANG.toUpperCase();
+    document.querySelectorAll('#langMenu [data-lang]').forEach(function(b){ b.setAttribute('aria-checked', b.getAttribute('data-lang') === LANG ? 'true' : 'false'); });
+    btn.setAttribute('aria-label', t(document.body.classList.contains('menu-open') ? 'Close menu' : 'Open menu'));
+    var note = document.getElementById('formNote'); if (note) { note.textContent = ''; note.className = 'form-note'; }
+    try { localStorage.setItem('afn-lang', LANG); } catch(e){}
+  }
+  var langEl = document.getElementById('lang'), langBtn = document.getElementById('langBtn');
+  function setLangOpen(open){ langEl.classList.toggle('open', open); langBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  langBtn.addEventListener('click', function(e){ e.stopPropagation(); setLangOpen(!langEl.classList.contains('open')); });
+  document.querySelectorAll('#langMenu [data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); setLangOpen(false); langBtn.focus(); });
+  });
+  document.addEventListener('click', function(e){ if (!langEl.contains(e.target)) setLangOpen(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setLangOpen(false); });
+
+  // hero tilt follows pointer
+  var stage = document.getElementById('stage'), cards = document.getElementById('cards');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && window.matchMedia('(hover: hover)').matches) {
+    stage.addEventListener('pointermove', function(e){
+      var r = stage.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      cards.style.transform = 'rotateY(' + (x*10) + 'deg) rotateX(' + (-y*8) + 'deg)';
+    });
+    stage.addEventListener('pointerleave', function(){ cards.style.transform = ''; });
+  }
+
+  // gentle reveal
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15}) : null;
+  document.querySelectorAll('.reveal').forEach(function(el){ io ? io.observe(el) : el.classList.add('in'); });
+
+  // WhatsApp chooser
+  var pop = document.getElementById('waPop'), waBtn = document.getElementById('waBtn');
+  function setPop(open){ pop.classList.toggle('show', open); waBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  waBtn.addEventListener('click', function(){ setPop(!pop.classList.contains('show')); });
+  document.querySelectorAll('[data-wa-open]').forEach(function(b){ b.addEventListener('click', function(){ setPop(true); }); });
+  document.getElementById('waClose').addEventListener('click', function(){
+    setPop(false);
+    try { sessionStorage.setItem('afn-wa-dismissed','1'); } catch(e){}
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setPop(false); });
+  var dismissed = false;
+  try { dismissed = sessionStorage.getItem('afn-wa-dismissed') === '1'; } catch(e){}
+  if (!dismissed && window.innerWidth > 640) setTimeout(function(){ setPop(true); }, 4500);
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var saved = null; try { saved = localStorage.getItem('afn-lang'); } catch(e){}
+  if (!saved) { var nl = (navigator.language || 'en').slice(0,2); saved = (nl === 'fr' || nl === 'es') ? nl : 'en'; }
+  setLang(saved);
+})();
+</script>
+</body>
+</html>
