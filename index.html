@@ -433,9 +433,10 @@ button.wa-btn{border:0;cursor:pointer}
   .card.side-l,.card.side-r,.card.center{animation:none;transform:none}
   .card.side-l .cap,.card.side-r .cap{display:block}
   .card.side-l .cap strong,.card.side-r .cap strong{font-size:19px}
-  .card-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
-  .card-dots .dot{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .25s,transform .25s}
-  .card-dots .dot.active{background:var(--green);transform:scale(1.3)}
+  .card-dots{display:flex;justify-content:center;align-items:center;gap:2px;margin-top:10px}
+  .card-dots .dot{position:relative;width:28px;height:28px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+  .card-dots .dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .25s,transform .25s}
+  .card-dots .dot.active::before{background:var(--green);transform:scale(1.3)}
 }
 @media (max-width:900px){
   .focus-grid{grid-template-columns:1fr;max-width:560px;margin-inline:auto}
@@ -555,7 +556,7 @@ button.wa-btn{border:0;cursor:pointer}
         <figure class="card side-l" style="margin:0"><img src="images/hero-card-left.webp" alt="" style="object-position:50% 40%"><div class="cap"><strong>Maternal health</strong><small>Safer childbirth</small></div></figure>
         <figure class="card side-r" style="margin:0"><img src="images/hero-card-center.webp" alt="" style="object-position:35% 50%"><div class="cap"><strong>NCD care</strong><small>Chronic treatments</small></div></figure>
       </div>
-      <div class="card-dots" id="cardDots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="card-dots" id="cardDots"><button type="button" class="dot active" aria-label="Card 1" tabindex="-1"></button><button type="button" class="dot" aria-label="Card 2" tabindex="-1"></button><button type="button" class="dot" aria-label="Card 3" tabindex="-1"></button></div>
       <div class="float-badge fb-1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l5 3V10l5 3V7l4 2v12"/></svg></span><span><b>Made in Africa</b>Local manufacturing</span></div>
       <div class="float-badge fb-2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5M15 14.6c2.6-.3 4.8 1 5.6 3.6"/></svg></span><span><b>50 to 500 jobs</b>Over ten years</span></div>
     </div>
@@ -870,7 +871,12 @@ button.wa-btn{border:0;cursor:pointer}
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       dragging = true; dragId = e.pointerId; axisLocked = e.pointerType === 'mouse' ? 'x' : null;
       startX = e.clientX; startY = e.clientY; startScroll = cardsRow.scrollLeft;
-      try { cardsRow.setPointerCapture(dragId); } catch(err){}
+      // Only capture the pointer once we know it's a horizontal drag (below).
+      // Capturing immediately on every touch, before the axis is known, can
+      // itself suppress the browser's native vertical pan for that same
+      // touch even after we later back off -- so a touch that turns out to
+      // be a vertical page-scroll never got a clean shot at scrolling.
+      if (axisLocked === 'x') { try { cardsRow.setPointerCapture(dragId); } catch(err){} }
     });
     cardsRow.addEventListener('pointermove', function(e){
       if (!dragging || e.pointerId !== dragId) return;
@@ -879,6 +885,7 @@ button.wa-btn{border:0;cursor:pointer}
         if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
         axisLocked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
         if (axisLocked === 'y') { dragging = false; return; }
+        try { cardsRow.setPointerCapture(dragId); } catch(err){}
       }
       if (axisLocked === 'x') {
         e.preventDefault();
@@ -898,6 +905,16 @@ button.wa-btn{border:0;cursor:pointer}
     cardsRow.addEventListener('pointerup', endCardDrag);
     cardsRow.addEventListener('pointercancel', endCardDrag);
     cardsRow.addEventListener('pointerleave', endCardDrag);
+
+    // Tapping a dot always works, regardless of any swipe-gesture
+    // ambiguity -- a plain click/tap isn't subject to the same
+    // touch-action/native-scroll race as a drag is.
+    cardDots.forEach(function(dot, i){
+      dot.addEventListener('click', function(){
+        var step = cardStep();
+        if (step) cardsRow.scrollTo({ left: i * step, behavior: 'smooth' });
+      });
+    });
   }
 
   // header state
