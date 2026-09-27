@@ -161,7 +161,7 @@ html:lang(fr) .motto,html:lang(es) .motto{font-size:clamp(40px,5.6vw,76px)}
 .card.side-r{animation:fanR 1.2s .45s cubic-bezier(.2,.8,.2,1) forwards}
 .card.center{width:300px;height:430px;z-index:3;animation:fanC 1.1s .3s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes fanL{to{opacity:1;transform:translate(var(--lx,-128%),-44%) rotateY(26deg) rotateZ(-4deg)}}
-@keyframes fanR{to{opacity:1;transform:translate(var(--rx,44%),-56%) rotateY(-15deg) rotateZ(4deg)}}
+@keyframes fanR{to{opacity:1;transform:translate(var(--rx,62%),-56%) rotateY(-10deg) rotateZ(4deg)}}
 @keyframes fanC{to{opacity:1;transform:translate(-50%,-50%) translateZ(60px)}}
 .card .cap{position:absolute;left:12px;right:12px;bottom:12px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.72);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.9)}
 .card .cap strong{display:block;font-family:var(--display);font-weight:400;font-size:19px;color:var(--navy);line-height:1.2}
@@ -865,16 +865,25 @@ button.wa-btn{border:0;cursor:pointer}
     };
     cardsRow.addEventListener('scroll', function(){ requestAnimationFrame(syncCardDots); }, {passive:true});
 
-    var dragging = false, dragId = null, startX = 0, startScroll = 0;
+    var dragging = false, dragId = null, startX = 0, startY = 0, startScroll = 0, axisLocked = null;
     cardsRow.addEventListener('pointerdown', function(e){
       if (e.pointerType === 'mouse' && e.button !== 0) return;
-      dragging = true; dragId = e.pointerId;
-      startX = e.clientX; startScroll = cardsRow.scrollLeft;
+      dragging = true; dragId = e.pointerId; axisLocked = e.pointerType === 'mouse' ? 'x' : null;
+      startX = e.clientX; startY = e.clientY; startScroll = cardsRow.scrollLeft;
       try { cardsRow.setPointerCapture(dragId); } catch(err){}
     });
     cardsRow.addEventListener('pointermove', function(e){
       if (!dragging || e.pointerId !== dragId) return;
-      cardsRow.scrollLeft = startScroll - (e.clientX - startX);
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      if (axisLocked === null) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        axisLocked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        if (axisLocked === 'y') { dragging = false; return; }
+      }
+      if (axisLocked === 'x') {
+        e.preventDefault();
+        cardsRow.scrollLeft = startScroll - dx;
+      }
     });
     function endCardDrag(e){
       if (!dragging || (e.pointerId !== undefined && e.pointerId !== dragId)) return;
