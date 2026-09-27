@@ -371,8 +371,8 @@ button.wa-btn{border:0;cursor:pointer}
 .foot-wave{display:block;width:100%;height:10px;background:linear-gradient(90deg,var(--navy-3) 0 72%,#fff 72% 73%,var(--leaf) 73% 100%)}
 
 /* whatsapp */
-.wa-float{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:flex-end;gap:12px;flex-direction:column}
-.wa-btn{width:64px;height:64px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 16px 34px -10px rgba(37,211,102,.7);position:relative;text-decoration:none;transition:transform .25s ease}
+.wa-float{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:flex-end;gap:12px;flex-direction:column;pointer-events:none}
+.wa-btn{width:64px;height:64px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 16px 34px -10px rgba(37,211,102,.7);position:relative;text-decoration:none;transition:transform .25s ease;pointer-events:auto}
 .wa-btn:hover{transform:scale(1.07)}
 .wa-btn svg{width:34px;height:34px;color:#fff}
 .wa-btn::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);z-index:-1;animation:ping 2.4s ease-out infinite}
@@ -414,9 +414,10 @@ button.wa-btn{border:0;cursor:pointer}
   .stage{height:auto;max-width:480px;margin-inline:auto;width:100%;min-width:0;perspective:none}
   .arc{display:none}
   .float-badge{display:none}
-  .cards{position:static;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;padding:4px 20px 12px;transform-style:flat;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x}
+  .cards{position:static;display:flex;gap:16px;overflow-x:auto;scroll-padding-inline:20px;padding:4px 20px 12px;transform-style:flat;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}
   .cards::-webkit-scrollbar{display:none}
-  .card{position:static;flex:0 0 auto;width:calc(100% - 40px);height:auto;aspect-ratio:25/36;opacity:1;scroll-snap-align:center}
+  .card{position:static;flex:0 0 auto;width:calc(100% - 40px);height:auto;aspect-ratio:25/36;opacity:1}
+  .card img{-webkit-user-drag:none;pointer-events:none}
   .card.side-l,.card.side-r,.card.center{animation:none;transform:none;width:calc(100% - 40px)}
   .card.side-l .cap,.card.side-r .cap{display:block}
   .card.side-l .cap strong,.card.side-r .cap strong{font-size:19px}
@@ -813,20 +814,53 @@ button.wa-btn{border:0;cursor:pointer}
   var WA = {ke:"254728780196", tz:"255713445251"};
   var EMAIL = "info@afrinovapharma.com";
 
-  // hero card carousel dots (mobile/tablet only; harmless no-op on desktop where it's hidden)
+  // hero card carousel: dot sync + manual pointer-drag scroll.
+  // Native CSS scroll-snap + touch-action was unreliable on real devices,
+  // so this drives scrollLeft directly from pointer events instead, which
+  // works consistently across touch and mouse without depending on the
+  // browser's own touch-gesture routing.
   var cardsRow = document.getElementById('cards');
   var cardDots = document.querySelectorAll('#cardDots .dot');
-  if (cardsRow && cardDots.length) {
-    var syncCardDots = function(){
+  if (cardsRow) {
+    var cardStep = function(){
       var first = cardsRow.children[0];
-      if (!first) return;
+      if (!first) return 0;
       var gap = parseFloat(getComputedStyle(cardsRow).columnGap) || 0;
-      var step = first.getBoundingClientRect().width + gap;
+      return first.getBoundingClientRect().width + gap;
+    };
+    var syncCardDots = function(){
+      if (!cardDots.length) return;
+      var step = cardStep();
       var idx = step ? Math.round(cardsRow.scrollLeft / step) : 0;
       idx = Math.max(0, Math.min(cardDots.length - 1, idx));
       cardDots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
     };
     cardsRow.addEventListener('scroll', function(){ requestAnimationFrame(syncCardDots); }, {passive:true});
+
+    var dragging = false, dragId = null, startX = 0, startScroll = 0;
+    cardsRow.addEventListener('pointerdown', function(e){
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      dragging = true; dragId = e.pointerId;
+      startX = e.clientX; startScroll = cardsRow.scrollLeft;
+      try { cardsRow.setPointerCapture(dragId); } catch(err){}
+    });
+    cardsRow.addEventListener('pointermove', function(e){
+      if (!dragging || e.pointerId !== dragId) return;
+      cardsRow.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    function endCardDrag(e){
+      if (!dragging || (e.pointerId !== undefined && e.pointerId !== dragId)) return;
+      dragging = false;
+      var step = cardStep();
+      if (step) {
+        var idx = Math.max(0, Math.min(cardsRow.children.length - 1, Math.round(cardsRow.scrollLeft / step)));
+        cardsRow.scrollTo({ left: idx * step, behavior: 'smooth' });
+      }
+      dragId = null;
+    }
+    cardsRow.addEventListener('pointerup', endCardDrag);
+    cardsRow.addEventListener('pointercancel', endCardDrag);
+    cardsRow.addEventListener('pointerleave', endCardDrag);
   }
 
   // header state
