@@ -416,10 +416,9 @@ button.wa-btn{border:0;cursor:pointer}
   .float-badge{display:none}
   .cards{position:static;display:flex;gap:16px;overflow-x:auto;scroll-padding-inline:20px;padding:4px 20px 12px;transform-style:flat;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}
   .cards::-webkit-scrollbar{display:none}
-  .card{position:relative;flex:0 0 auto;opacity:1}
+  .card{position:relative;top:auto;left:auto;flex:0 0 auto;opacity:1}
   .card img{-webkit-user-drag:none;pointer-events:none}
   .card.side-l,.card.side-r,.card.center{animation:none;transform:none}
-  .card.center{order:-1}
   .card.side-l .cap,.card.side-r .cap{display:block}
   .card.side-l .cap strong,.card.side-r .cap strong{font-size:19px}
   .card-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
@@ -546,9 +545,9 @@ button.wa-btn{border:0;cursor:pointer}
         <path d="M372 52 A 250 250 0 0 1 512 440" stroke="url(#nArc)" style="animation-delay:.7s"/>
       </svg>
       <div class="cards" id="cards">
+        <figure class="card center" style="margin:0"><img src="images/hero-card-right.webp" alt=""><div class="cap"><strong>Quality, affordable medicines</strong><small>Accessible to all</small></div></figure>
         <figure class="card side-l" style="margin:0"><img src="images/hero-card-left.webp" alt="" style="object-position:50% 40%"><div class="cap"><strong>Maternal health</strong><small>Safer childbirth</small></div></figure>
         <figure class="card side-r" style="margin:0"><img src="images/hero-card-center.webp" alt="" style="object-position:35% 50%"><div class="cap"><strong>NCD care</strong><small>Chronic treatments</small></div></figure>
-        <figure class="card center" style="margin:0"><img src="images/hero-card-right.webp" alt=""><div class="cap"><strong>Quality, affordable medicines</strong><small>Accessible to all</small></div></figure>
       </div>
       <div class="card-dots" id="cardDots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
       <div class="float-badge fb-1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l5 3V10l5 3V7l4 2v12"/></svg></span><span><b>Made in Africa</b>Local manufacturing</span></div>
