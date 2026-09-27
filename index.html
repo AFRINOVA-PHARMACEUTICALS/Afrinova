@@ -416,9 +416,10 @@ button.wa-btn{border:0;cursor:pointer}
   .float-badge{display:none}
   .cards{position:static;display:flex;gap:16px;overflow-x:auto;scroll-padding-inline:20px;padding:4px 20px 12px;transform-style:flat;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}
   .cards::-webkit-scrollbar{display:none}
-  .card{position:relative;flex:0 0 auto;width:calc(100% - 40px);height:auto;aspect-ratio:25/36;opacity:1}
+  .card{position:relative;flex:0 0 auto;opacity:1}
   .card img{-webkit-user-drag:none;pointer-events:none}
-  .card.side-l,.card.side-r,.card.center{animation:none;transform:none;width:calc(100% - 40px)}
+  .card.side-l,.card.side-r,.card.center{animation:none;transform:none}
+  .card.center{order:-1}
   .card.side-l .cap,.card.side-r .cap{display:block}
   .card.side-l .cap strong,.card.side-r .cap strong{font-size:19px}
   .card-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
@@ -822,6 +823,28 @@ button.wa-btn{border:0;cursor:pointer}
   var cardsRow = document.getElementById('cards');
   var cardDots = document.querySelectorAll('#cardDots .dot');
   if (cardsRow) {
+    // Explicit pixel sizing instead of CSS calc()/aspect-ratio on a flex
+    // item: that combination rendered inconsistently between browser
+    // engines on real devices, so this computes and sets width/height
+    // directly in JS to guarantee identical results everywhere.
+    var cardsMQ = window.matchMedia('(max-width: 1180px)');
+    var sizeCards = function(){
+      if (!cardsMQ.matches) {
+        Array.prototype.forEach.call(cardsRow.children, function(c){ c.style.width = ''; c.style.height = ''; });
+        return;
+      }
+      var w = cardsRow.clientWidth - 40;
+      if (w <= 0) return;
+      var h = Math.round(w * 36 / 25);
+      Array.prototype.forEach.call(cardsRow.children, function(c){
+        c.style.width = w + 'px';
+        c.style.height = h + 'px';
+      });
+    };
+    sizeCards();
+    window.addEventListener('resize', sizeCards);
+    cardsMQ.addEventListener('change', sizeCards);
+
     var cardStep = function(){
       var first = cardsRow.children[0];
       if (!first) return 0;
