@@ -426,9 +426,9 @@ button.wa-btn{border:0;cursor:pointer}
   .stage{height:auto;max-width:480px;margin-inline:auto;width:100%;min-width:0;perspective:none}
   .arc{display:none}
   .float-badge{display:none}
-  .cards{position:static;display:flex;gap:16px;overflow-x:auto;scroll-padding-inline:20px;padding:4px 20px 12px;transform-style:flat;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-y;-webkit-user-select:none;user-select:none;cursor:grab}
+  .cards{position:static;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;padding:4px 20px 12px;transform-style:flat;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x}
   .cards::-webkit-scrollbar{display:none}
-  .card{position:relative;top:auto;left:auto;flex:0 0 auto;opacity:1}
+  .card{position:relative;top:auto;left:auto;flex:0 0 auto;opacity:1;scroll-snap-align:center}
   .card img{-webkit-user-drag:none;pointer-events:none}
   .card.side-l,.card.side-r,.card.center{animation:none;transform:none}
   .card.side-l .cap,.card.side-r .cap{display:block}
@@ -821,11 +821,14 @@ button.wa-btn{border:0;cursor:pointer}
   var WA = {ke:"254728780196", tz:"255713445251"};
   var EMAIL = "info@afrinovapharma.com";
 
-  // hero card carousel: dot sync + manual pointer-drag scroll.
-  // Native CSS scroll-snap + touch-action was unreliable on real devices,
-  // so this drives scrollLeft directly from pointer events instead, which
-  // works consistently across touch and mouse without depending on the
-  // browser's own touch-gesture routing.
+  // hero card carousel: native touch/scroll (overflow-x + scroll-snap +
+  // touch-action:pan-x) handles the actual swiping -- three attempts at a
+  // custom JS pointer-drag replacement all failed on real devices despite
+  // passing every test this environment can run (a mouse-simulated drag
+  // never exercises the real touch/compositor code path a phone uses), so
+  // this reverts to the browser's own, thoroughly-proven scrolling instead
+  // of a fourth from-scratch reimplementation. Just sizing + dot sync/tap
+  // navigation remain, neither of which touch how the scroll itself works.
   var cardsRow = document.getElementById('cards');
   var cardDots = document.querySelectorAll('#cardDots .dot');
   if (cardsRow) {
@@ -865,46 +868,6 @@ button.wa-btn{border:0;cursor:pointer}
       cardDots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
     };
     cardsRow.addEventListener('scroll', function(){ requestAnimationFrame(syncCardDots); }, {passive:true});
-
-    var dragging = false, dragId = null, startX = 0, startY = 0, startScroll = 0, axisLocked = null;
-    cardsRow.addEventListener('pointerdown', function(e){
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      dragging = true; dragId = e.pointerId; axisLocked = e.pointerType === 'mouse' ? 'x' : null;
-      startX = e.clientX; startY = e.clientY; startScroll = cardsRow.scrollLeft;
-      // Only capture the pointer once we know it's a horizontal drag (below).
-      // Capturing immediately on every touch, before the axis is known, can
-      // itself suppress the browser's native vertical pan for that same
-      // touch even after we later back off -- so a touch that turns out to
-      // be a vertical page-scroll never got a clean shot at scrolling.
-      if (axisLocked === 'x') { try { cardsRow.setPointerCapture(dragId); } catch(err){} }
-    });
-    cardsRow.addEventListener('pointermove', function(e){
-      if (!dragging || e.pointerId !== dragId) return;
-      var dx = e.clientX - startX, dy = e.clientY - startY;
-      if (axisLocked === null) {
-        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
-        axisLocked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-        if (axisLocked === 'y') { dragging = false; return; }
-        try { cardsRow.setPointerCapture(dragId); } catch(err){}
-      }
-      if (axisLocked === 'x') {
-        e.preventDefault();
-        cardsRow.scrollLeft = startScroll - dx;
-      }
-    });
-    function endCardDrag(e){
-      if (!dragging || (e.pointerId !== undefined && e.pointerId !== dragId)) return;
-      dragging = false;
-      var step = cardStep();
-      if (step) {
-        var idx = Math.max(0, Math.min(cardsRow.children.length - 1, Math.round(cardsRow.scrollLeft / step)));
-        cardsRow.scrollTo({ left: idx * step, behavior: 'smooth' });
-      }
-      dragId = null;
-    }
-    cardsRow.addEventListener('pointerup', endCardDrag);
-    cardsRow.addEventListener('pointercancel', endCardDrag);
-    cardsRow.addEventListener('pointerleave', endCardDrag);
 
     // Tapping a dot always works, regardless of any swipe-gesture
     // ambiguity -- a plain click/tap isn't subject to the same
